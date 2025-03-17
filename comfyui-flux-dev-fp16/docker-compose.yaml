@@ -1,0 +1,23 @@
+services:
+  latest:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: python:3.10-slim
+        COMFYUI_VERSION: 0.3.22
+    image: quickpod/comfyui:flux-dev-fp16
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+    ports:
+      - 8188:8188 # comfyui
+      - 8888:8888 # jupyterlab
+    # command: /bin/bash
+    # tty: true
+    # stdin_open: true
