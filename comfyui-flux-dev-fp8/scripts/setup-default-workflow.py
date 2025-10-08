@@ -63,4 +63,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# python replace_default_graph.py --workflow-path "/workspace/workflow.json" --workflow-name "workflow.json" --workflow-index 1 --html-path "/workspace/ComfyUI/venv/lib/python3.10/site-packages/comfyui_frontend_package/static/index.html"
+# python replace_default_graph.py --workflow-path "/workspace/workflow.json" --workflow-name "workflow.json" --workflow-index 1 --html-path "/workspace/ComfyUI/venv/lib/python3.13/site-packages/comfyui_frontend_package/static/index.html"
