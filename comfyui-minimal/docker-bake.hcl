@@ -1,5 +1,5 @@
 variable "COMFYUI_VERSION" {
-    default = "0.3.22"
+    default = "0.3.64"
 }
 
 variable "REGISTRY" {
@@ -12,7 +12,7 @@ target "minimal" {
     dockerfile = "Dockerfile"
     platforms = ["linux/amd64"]
     args = {
-        BASE_IMAGE = "python:3.10-slim"
+        BASE_IMAGE = "python:3.13-slim"
         COMFYUI_VERSION = "${COMFYUI_VERSION}"
     }
     tags = [

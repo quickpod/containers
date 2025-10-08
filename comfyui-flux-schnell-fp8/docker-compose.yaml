@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        BASE_IMAGE: python:3.10-slim
-        COMFYUI_VERSION: 0.3.22
+        BASE_IMAGE: python:3.13-slim
+        COMFYUI_VERSION: 0.3.64
     image: quickpod/comfyui:flux-schnell-fp8
     deploy:
       resources:

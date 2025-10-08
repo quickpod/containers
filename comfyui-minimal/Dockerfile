@@ -27,7 +27,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     git -C ./custom_nodes clone https://github.com/ltdrdata/ComfyUI-Manager.git && \
     cd custom_nodes/ComfyUI-Manager && pip install -r requirements.txt
 
-COPY --chmod=755 scripts/* ./
-RUN ./setup-ssh.sh
+COPY --chmod=+x ./scripts/* ./
+
+RUN bash ./setup-ssh.sh
 
 CMD ["/workspace/ComfyUI/start.sh"]

@@ -1,5 +1,5 @@
 # ComfyUI Minimal Docker
-- 3.55 GB (compressed)
+- 4.85 GB (compressed)
 - Comes with manager installed
 - No other models/custom nodes
 

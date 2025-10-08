@@ -39,8 +39,8 @@ COPY --chmod=755 scripts/* ./
 RUN mkdir -p ./user/default/workflows
 COPY workflows/* ./user/default/workflows
 RUN echo '{"Comfy.TutorialCompleted": true}' > ./user/default/comfy.settings.json
-RUN python setup-default-workflow.py --workflow-path "./user/default/workflows/flux-dev-fp16-workflow.json" --workflow-name "flux-dev-fp16-workflow.json" --workflow-index 1 --html-path "./venv/lib/python3.10/site-packages/comfyui_frontend_package/static/index.html"
+RUN python setup-default-workflow.py --workflow-path "./user/default/workflows/flux-dev-fp16-workflow.json" --workflow-name "flux-dev-fp16-workflow.json" --workflow-index 1 --html-path "./venv/lib/python3.13/site-packages/comfyui_frontend_package/static/index.html"
 
-RUN ./setup-ssh.sh
+RUN bash ./setup-ssh.sh
 
 CMD ["/workspace/ComfyUI/start.sh"]
