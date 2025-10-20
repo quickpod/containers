@@ -15,7 +15,7 @@ docker run -d \
   -p 22:22 \
   -p 9090:9090 \
   -p 8888:8888 \
-  yuvraj108c/invokeai:latest
+  quickpod/invokeai:latest
 ```
 
 ## Build

@@ -1,5 +1,5 @@
 variable "INVOKEAI_VERSION" {
-    default = "5.7.0"
+    default = "6.9.0"
 }
 
 variable "REGISTRY" {
@@ -12,7 +12,7 @@ target "latest" {
     dockerfile = "Dockerfile"
     platforms = ["linux/amd64"]
     args = {
-        BASE_IMAGE = "python:3.10-slim"
+        BASE_IMAGE = "python:3.13-slim"
         INVOKEAI_VERSION = "${INVOKEAI_VERSION}"
     }
     tags = [
