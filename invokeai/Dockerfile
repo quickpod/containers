@@ -17,7 +17,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     
 COPY invokeai.yaml .
 
-COPY --chmod=755 scripts/* ./
+COPY --chmod=+x scripts/* ./
 
 RUN bash ./setup-ssh.sh
 
