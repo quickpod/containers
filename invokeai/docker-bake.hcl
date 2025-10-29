@@ -12,7 +12,7 @@ target "latest" {
     dockerfile = "Dockerfile"
     platforms = ["linux/amd64"]
     args = {
-        BASE_IMAGE = "python:3.13-slim"
+        BASE_IMAGE = "python:3.10-slim"
         INVOKEAI_VERSION = "${INVOKEAI_VERSION}"
     }
     tags = [

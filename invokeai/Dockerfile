@@ -3,7 +3,7 @@ FROM ${BASE_IMAGE:?}
 
 WORKDIR /workspace/invokeai
 
-RUN apt update -y && apt install git wget curl libgl1 libglib2.0-0 -y
+RUN apt update -y && apt install git wget curl libgl1 libglib2.0-0 gcc build-essential -y
 
 ARG INVOKEAI_VERSION
 RUN git clone https://github.com/invoke-ai/InvokeAI .
@@ -19,6 +19,6 @@ COPY invokeai.yaml .
 
 COPY --chmod=755 scripts/* ./
 
-RUN ./setup-ssh.sh
+RUN bash ./setup-ssh.sh
 
 CMD ["/workspace/invokeai/start.sh"]
