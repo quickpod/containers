@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       args:
         BASE_IMAGE: python:3.13-slim
-        COMFYUI_VERSION: 0.3.64
+        COMFYUI_VERSION: 0.14.2
     image: quickpod/comfyui:minimal
     deploy:
       resources:

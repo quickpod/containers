@@ -10,9 +10,7 @@ RUN apt update -y && apt install git wget ffmpeg -y
 
 ARG COMFYUI_VERSION
 WORKDIR /workspace/ComfyUI
-RUN git clone https://github.com/comfyanonymous/ComfyUI .
-
-RUN git checkout v${COMFYUI_VERSION}
+RUN git clone --depth 1 --branch v${COMFYUI_VERSION} https://github.com/Comfy-Org/ComfyUI .
 
 # comfyui requirements
 RUN --mount=type=cache,target=/root/.cache/pip \
@@ -29,6 +27,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 COPY --chmod=+x ./scripts/* ./
 
-RUN bash ./setup-ssh.sh
+RUN sed -i 's/\r$//' /workspace/ComfyUI/*.sh && \
+    bash -e ./setup-ssh.sh
 
 CMD ["/workspace/ComfyUI/start.sh"]
