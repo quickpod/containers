@@ -1,5 +1,5 @@
 variable "COMFYUI_VERSION" {
-    default = "0.3.64"
+    default = "0.14.2"
 }
 
 variable "REGISTRY" {
