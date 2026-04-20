@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt update && apt install -y openssh-server
+apt update && apt install -y openssh-server openssl
 mkdir /var/run/sshd
 
 sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config

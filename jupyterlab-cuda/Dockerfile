@@ -26,7 +26,7 @@ RUN apt-get update -y && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
     apt-get install -y python3 python3-pip python3-venv && \
-    apt-get install -y --no-install-recommends openssh-server openssh-client git git-lfs wget vim dos2unix curl zip unzip rsync p7zip-full && \
+    apt-get install -y --no-install-recommends openssh-server openssh-client openssl git git-lfs wget vim dos2unix curl zip unzip rsync p7zip-full && \
     apt-get install -y software-properties-common && \
     apt-get install -y \
         apt-utils \

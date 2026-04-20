@@ -35,8 +35,19 @@ if [ ! -x "$PYTHON_BIN" ]; then
     exit 1
 fi
 
+# Generate self-signed TLS certificate
+SSL_DIR=/etc/comfyui/ssl
+mkdir -p "$SSL_DIR"
+if [ ! -f "$SSL_DIR/cert.crt" ]; then
+    openssl req -x509 -nodes -days 3650 \
+        -newkey rsa:2048 \
+        -keyout "$SSL_DIR/cert.key" \
+        -out "$SSL_DIR/cert.crt" \
+        -subj '/C=US/ST=State/L=City/O=QuickPod/CN=localhost'
+fi
+
 /usr/sbin/sshd -D &
 
-nohup "$JUPYTER_BIN" --allow-root --ip 0.0.0.0 --NotebookApp.token='' --notebook-dir /workspace/ComfyUI --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=1 &
+nohup "$JUPYTER_BIN" --allow-root --ip 0.0.0.0 --NotebookApp.token='' --notebook-dir /workspace/ComfyUI --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=1 --ServerApp.certfile="$SSL_DIR/cert.crt" --ServerApp.keyfile="$SSL_DIR/cert.key" &
 
-exec "$PYTHON_BIN" /workspace/ComfyUI/main.py --listen
+exec "$PYTHON_BIN" /workspace/ComfyUI/main.py --listen --tls-keyfile "$SSL_DIR/cert.key" --tls-certfile "$SSL_DIR/cert.crt"

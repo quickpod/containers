@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-apt update && apt install -y openssh-server
+apt update && apt install -y openssh-server openssl
 mkdir -p /var/run/sshd
 
 sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config

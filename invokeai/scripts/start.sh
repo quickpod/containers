@@ -25,10 +25,21 @@ fi
 
 cd /workspace/invokeai
 
+# Generate self-signed TLS certificate
+SSL_DIR=/etc/quickpod/ssl
+mkdir -p "$SSL_DIR"
+if [ ! -f "$SSL_DIR/cert.crt" ]; then
+    openssl req -x509 -nodes -days 3650 \
+        -newkey rsa:2048 \
+        -keyout "$SSL_DIR/cert.key" \
+        -out "$SSL_DIR/cert.crt" \
+        -subj '/C=US/ST=State/L=City/O=QuickPod/CN=localhost'
+fi
+
 source venv/bin/activate
 
 exec /usr/sbin/sshd -D & 
 
-nohup jupyter-lab --allow-root --ip  0.0.0.0 --NotebookApp.token='' --notebook-dir ./ --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=1 &
+nohup jupyter-lab --allow-root --ip 0.0.0.0 --NotebookApp.token='' --notebook-dir ./ --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=1 --ServerApp.certfile="$SSL_DIR/cert.crt" --ServerApp.keyfile="$SSL_DIR/cert.key" &
 
 python scripts/invokeai-web.py
