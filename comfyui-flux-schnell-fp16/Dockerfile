@@ -29,11 +29,11 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # models
 RUN ls
+RUN aria2c --console-log-level=error -c -x 16 -s 16 -k 1M "https://huggingface.co/Comfy-Org/flux1-schnell/resolve/main/flux1-schnell.safetensors" -d "models/unet" -o "flux1-schnell.safetensors"
 ARG HF_TOKEN
-RUN aria2c --console-log-level=error -c -x 16 -s 16 -k 1M --header="Authorization: Bearer ${HF_TOKEN}" "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors" -d "models/unet" -o "flux1-schnell.safetensors"
 RUN aria2c --console-log-level=error -c -x 16 -s 16 -k 1M "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors" -d "models/text_encoders" -o "t5xxl_fp16.safetensors"
 RUN aria2c --console-log-level=error -c -x 16 -s 16 -k 1M "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors" -d "models/text_encoders" -o "clip_l.safetensors"
-RUN aria2c --console-log-level=error -c -x 16 -s 16 -k 1M --header="Authorization: Bearer ${HF_TOKEN}" "https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors" -d "models/vae" -o "ae.safetensors"
+RUN aria2c --console-log-level=error -c -x 16 -s 16 -k 1M --header="Authorization: Bearer ${HF_TOKEN}" "https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors" -d "models/vae" -o "ae.safetensors"
 
 COPY --chmod=755 scripts/* ./
 
