@@ -18,7 +18,7 @@ docker run -d \
   -p 22:22 \
   -p 7860:7860 \
   -p 8888:8888 \
-  yuvraj108c/fooocus:latest
+  quickpod/fooocus:latest
 ```
 
 ## Build
