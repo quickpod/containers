@@ -22,6 +22,17 @@ setup_ssh() {
 
 # Start jupyter lab
 start_jupyter() {
+    # Generate self-signed TLS certificate
+    SSL_DIR=/etc/quickpod/ssl
+    mkdir -p "$SSL_DIR"
+    if [ ! -f "$SSL_DIR/cert.crt" ]; then
+        openssl req -x509 -nodes -days 3650 \
+            -newkey rsa:2048 \
+            -keyout "$SSL_DIR/cert.key" \
+            -out "$SSL_DIR/cert.crt" \
+            -subj '/C=US/ST=State/L=City/O=QuickPod/CN=localhost'
+    fi
+
     if [[ $JUPYTER_PASSWORD ]]; then
         echo "Starting Jupyter Lab..."
         cd /
@@ -32,7 +43,9 @@ start_jupyter() {
             --ServerApp.token=$JUPYTER_PASSWORD \
             --ServerApp.allow_origin=* \
             --ServerApp.preferred_dir=/workspace \
-            --ServerApp.root_dir=/
+            --ServerApp.root_dir=/ \
+            --ServerApp.certfile="$SSL_DIR/cert.crt" \
+            --ServerApp.keyfile="$SSL_DIR/cert.key"
         echo "JupyterLab started with password authentication"
     else
         echo "JUPYTER_PASSWORD not set, skipping JupyterLab startup"
