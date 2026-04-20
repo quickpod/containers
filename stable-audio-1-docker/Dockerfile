@@ -18,7 +18,7 @@ RUN aria2c --console-log-level=error -c -x 16 -s 16 -k 1M "https://huggingface.c
 
 # T5
 RUN . ./venv/bin/activate && \
-    huggingface-cli download google-t5/t5-base config.json model.safetensors spiece.model tokenizer.json && \
+    hf download google-t5/t5-base config.json model.safetensors spiece.model tokenizer.json && \
     mv /root/.cache/huggingface/hub/models--google-t5--t5-base /root/.cache/huggingface/hub/models--t5-base
 
 COPY --chmod=755 scripts/* ./
