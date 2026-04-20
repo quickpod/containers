@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
       args:
         BASE_IMAGE: python:3.10-slim
-    image: yuvraj108c/stable-audio-1:latest
+    image: quickpod/stable-audio-1:latest
     deploy:
       resources:
         reservations:
