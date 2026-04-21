@@ -30,7 +30,7 @@ target "cuda-12-4" {
   ]
   args = {
     CUDA_VERSION = "12.4.1"
-    CUDNN_VERSION = "9.1"
+    CUDNN_VERSION = ""
     UBUNTU_VERSION = "22.04"
   }
 }
@@ -43,7 +43,7 @@ target "cuda-11-8" {
   ]
   args = {
     CUDA_VERSION = "11.8.0"
-    CUDNN_VERSION = "8.9"
+    CUDNN_VERSION = "8"
     UBUNTU_VERSION = "22.04"
   }
 }
