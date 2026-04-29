@@ -13,7 +13,7 @@ RUN git checkout v${INVOKEAI_VERSION}
 RUN --mount=type=cache,target=/root/.cache/pip \
     python -m venv ./venv && \
     . ./venv/bin/activate && \
-    pip install InvokeAI jupyterlab
+    pip install . jupyterlab
     
 COPY invokeai.yaml .
 
