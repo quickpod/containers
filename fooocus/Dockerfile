@@ -91,7 +91,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     . ./venv/bin/activate && \
     pip install -r requirements_versions.txt && \
     pip install --index-url "$TORCH_INDEX_URL" torch==2.7.0+cu128 torchvision==0.22.0+cu128 torchaudio==2.7.0+cu128 && \
-    pip install --no-deps jupyterlab "$XFORMERS_PACKAGE"
+    pip install jupyterlab && \
+    pip install --no-deps "$XFORMERS_PACKAGE"
     
 RUN --mount=type=cache,target=/root/.cache/pip \
     . ./venv/bin/activate && \
