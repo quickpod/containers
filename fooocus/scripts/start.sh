@@ -38,8 +38,15 @@ fi
 
 source venv/bin/activate
 
+# Gradio checks its own localhost URL on startup. Ensure container proxy settings
+# do not intercept loopback requests, otherwise Fooocus refuses to launch unless
+# share mode is enabled.
+LOOPBACK_NO_PROXY="127.0.0.1,localhost,::1"
+export NO_PROXY="${LOOPBACK_NO_PROXY}${NO_PROXY:+,$NO_PROXY}"
+export no_proxy="${LOOPBACK_NO_PROXY}${no_proxy:+,$no_proxy}"
+
 exec /usr/sbin/sshd -D & 
 
 nohup jupyter-lab --allow-root --ip 0.0.0.0 --NotebookApp.token='' --notebook-dir ./ --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=1 --ServerApp.certfile="$SSL_DIR/cert.crt" --ServerApp.keyfile="$SSL_DIR/cert.key" &
 
-python launch.py --listen --port 7860 --theme dark --ssl-certfile "$SSL_DIR/cert.crt" --ssl-keyfile "$SSL_DIR/cert.key"
+python launch.py --listen --port 7860 --theme dark
