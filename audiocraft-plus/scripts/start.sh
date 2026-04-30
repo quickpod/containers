@@ -40,4 +40,4 @@ source venv/bin/activate
 
 nohup jupyter-lab --allow-root --ip 0.0.0.0 --NotebookApp.token='' --notebook-dir ./ --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=1 --ServerApp.certfile="$SSL_DIR/cert.crt" --ServerApp.keyfile="$SSL_DIR/cert.key" &
 
-python app.py --listen 0.0.0.0 --ssl-certfile "$SSL_DIR/cert.crt" --ssl-keyfile "$SSL_DIR/cert.key""$SSL_DIR/cert.key"
+python app.py --listen 0.0.0.0
