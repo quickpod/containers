@@ -20,6 +20,10 @@ ENV BUILD_TOOLS_VERSION=${BUILD_TOOLS_VERSION}
 ENV EMULATOR_DEVICE=${EMULATOR_DEVICE}
 ENV EMULATOR_NAME=${EMULATOR_NAME}
 
+# Force emulator to use IPv4 (avoids ::1 modem connection failures in containers)
+ENV ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL=2
+ENV ANDROID_AVD_HOME=/root/.android/avd
+
 # Install system dependencies
 RUN apt-get update -y && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
@@ -68,7 +72,9 @@ RUN echo "no" | avdmanager create avd \
     echo "hw.gpu.enabled=yes" >> /root/.android/avd/${EMULATOR_NAME}.avd/config.ini && \
     echo "hw.gpu.mode=swiftshader_indirect" >> /root/.android/avd/${EMULATOR_NAME}.avd/config.ini && \
     echo "disk.dataPartition.size=4096M" >> /root/.android/avd/${EMULATOR_NAME}.avd/config.ini && \
-    echo "hw.keyboard=yes" >> /root/.android/avd/${EMULATOR_NAME}.avd/config.ini
+    echo "hw.keyboard=yes" >> /root/.android/avd/${EMULATOR_NAME}.avd/config.ini && \
+    echo "hw.gsmModem=no" >> /root/.android/avd/${EMULATOR_NAME}.avd/config.ini && \
+    echo "hw.mainKeys=no" >> /root/.android/avd/${EMULATOR_NAME}.avd/config.ini
 
 # Set up noVNC for browser-based access
 RUN ln -s /usr/share/novnc/vnc.html /usr/share/novnc/index.html
@@ -77,6 +83,9 @@ RUN ln -s /usr/share/novnc/vnc.html /usr/share/novnc/index.html
 RUN mkdir -p /var/run/sshd && \
     echo "PermitRootLogin yes" >> /etc/ssh/sshd_config && \
     echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
+
+# Note: IPv6 loopback (::1) is added at runtime in start.sh
+# because Docker overwrites /etc/hosts at container start
 
 # Expose ports:
 #   5554/5555 - emulator console/adb

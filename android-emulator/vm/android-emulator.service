@@ -1,0 +1,15 @@
+[Unit]
+Description=Android Emulator Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/vm-start.sh
+Restart=on-failure
+RestartSec=10
+Environment=ANDROID_HOME=/opt/android-sdk
+Environment=ANDROID_SDK_ROOT=/opt/android-sdk
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=multi-user.target

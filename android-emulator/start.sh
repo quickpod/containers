@@ -19,14 +19,14 @@ setup_ssh() {
 
 start_display() {
     echo "Starting virtual display (Xvfb)..."
-    Xvfb :0 -screen 0 1080x1920x24 -nolisten tcp &
+    Xvfb :0 -screen 0 1920x1080x24 -nolisten tcp &
     sleep 2
     export DISPLAY=:0
 }
 
 start_vnc() {
     echo "Starting VNC server..."
-    x11vnc -display :0 -forever -nopw -shared -rfbport 5900 &
+    x11vnc -display :0 -forever -nopw -shared -rfbport 5900 -noxdamage &
     sleep 1
 
     echo "Starting noVNC (web access on port 6080)..."
@@ -39,6 +39,8 @@ start_emulator() {
     local emu_args=(
         -avd "${EMULATOR_NAME}"
         -no-audio
+        -no-sim
+        -skin 480x960
         -gpu swiftshader_indirect
         -no-boot-anim
         -no-snapshot
@@ -104,6 +106,16 @@ echo "  QuickPod Android Emulator Container"
 echo "  API Level: ${API_LEVEL}"
 echo "  Device: ${EMULATOR_DEVICE}"
 echo "============================================"
+
+# Ensure IPv6 loopback is available (emulator modem uses ::1)
+if ! grep -q '::1' /etc/hosts 2>/dev/null; then
+    echo '::1 localhost ip6-localhost ip6-loopback' >> /etc/hosts
+fi
+
+# Enable IPv6 loopback if possible
+if [[ -w /proc/sys/net/ipv6/conf/lo/disable_ipv6 ]]; then
+    echo 0 > /proc/sys/net/ipv6/conf/lo/disable_ipv6
+fi
 
 setup_ssh
 start_display
