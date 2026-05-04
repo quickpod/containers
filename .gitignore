@@ -1,0 +1,7 @@
+# Large disk images
+*.img
+*.qcow2
+*.raw
+*.vmdk
+*.vdi
+*.iso
