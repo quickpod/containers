@@ -2,6 +2,7 @@ import torch
 import torchaudio
 from einops import rearrange
 import gradio as gr
+import gradio.networking
 import uuid
 import json
 import os
@@ -178,4 +179,5 @@ interface = gr.Interface(
 model, model_config = load_model_sa()
 
 # Launch the Interface
+gradio.networking.url_ok = lambda url: True
 interface.queue().launch(server_name="0.0.0.0")

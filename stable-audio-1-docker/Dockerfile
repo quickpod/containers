@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install git wget libsndfile1 ffmpeg aria2 -y
 RUN --mount=type=cache,target=/root/.cache/pip \
     python -m venv ./venv && \
     . ./venv/bin/activate && \
-    pip install torch torchvision gradio==3.50.2 jupyterlab stable-audio-tools==0.0.16 soxr
+    pip install torch torchvision gradio==3.50.2 fastapi==0.104.1 starlette==0.27.0 pydantic==1.10.21 jupyterlab stable-audio-tools==0.0.16 soxr
 
 # Model
 RUN aria2c --console-log-level=error -c -x 16 -s 16 -k 1M "https://huggingface.co/audo/stable-audio-open-1.0/resolve/main/model.safetensors" -d "./" -o "model.safetensors"
